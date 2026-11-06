@@ -1,0 +1,15 @@
+# Versions the repository was tested with (Python 3.11, CPU).
+numpy==2.4.6
+opencv-python-headless==5.0.0.93
+pandas==3.1.0
+scipy==1.17.1
+scikit-image==0.26.0
+scikit-learn==1.9.1
+PyWavelets==1.9.0
+matplotlib==3.11.2
+torch==2.15.0
+clustpy==0.0.3
+pytest==9.2.0
+# Optional: the COVID / non-COVID deep-learning and FCM cells call tf.random.set_seed(11). Without TensorFlow a
+# no-op stand-in is used (docs/CODE_CHANGES.md, R2); results are identical either way.
+# tensorflow-cpu

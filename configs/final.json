@@ -1,0 +1,29 @@
+{
+  "description": "Experiments: seeds 41, 42, 43; ISIC dermatology (900 images), COVID (207), non-COVID (32); 4 proposed methods and 6 comparison methods; parameter sensitivity on ISIC with seed 42.",
+  "output": "results/final",
+  "seeds": [41, 42, 43],
+  "datasets": ["derma", "covid", "noncovid"],
+  "methods": ["SPMVFCM", "SPMVKFCM", "SPWPMVFCM", "SPWPMVKFCM", "kmeans", "fcm", "dcn", "dec", "dipencoder", "dipdeck"],
+  "params": {
+    "SPMVFCM":    {"lambda": 1e8},
+    "SPMVKFCM":   {"lambda": 1e4, "sigma": 100},
+    "SPWPMVFCM":  {"lambda": 1e3},
+    "SPWPMVKFCM": {"lambda": 1,   "sigma": 100}
+  },
+  "derma_image_list": "images.txt",
+  "examples": {"seed": 42, "images": ["ISIC_0001191", "ISIC_0005555", "ISIC_0003346", "ISIC_0005564", "ISIC_0002093"]},
+  "sensitivity": {
+    "seed": 42,
+    "image_list": "images.txt",
+    "selection_metric": "IoU",
+    "stage1": {
+      "SPMVKFCM_lambda_sigma":   {"method": "SPMVKFCM",   "grid": [[1e3, 30], [1e3, 100], [1e3, 300], [1e4, 30], [1e4, 100], [1e4, 300], [1e5, 30], [1e5, 100], [1e5, 300]]},
+      "SPMVFCM_lambda":          {"method": "SPMVFCM",    "grid": [1e6, 3e6, 1e7, 3e7, 1e8, 3e8, 1e9, 1e10, 1e11]},
+      "SPWPMVKFCM_lambda_sigma": {"method": "SPWPMVKFCM", "grid": [[1, 30], [1, 100], [1, 300], [10, 30], [10, 100], [10, 300], [100, 30], [100, 100], [100, 300]]},
+      "SPWPMVFCM_lambda":        {"method": "SPWPMVFCM",  "grid": [1e2, 3e2, 1e3, 3e3, 1e4, 3e4, 1e5, 1e6, 1e7]}
+    },
+    "stage2": {"SPMVKFCM_d": "SPMVKFCM", "SPMVFCM_d": "SPMVFCM", "SPWPMVKFCM_d": "SPWPMVKFCM", "SPWPMVFCM_d": "SPWPMVFCM"},
+    "d_values": "1.2, 1.4, ..., 3.4"
+  },
+  "cpu": {"thread_budget": 120, "deep_threads": 4, "other_threads": 1}
+}
